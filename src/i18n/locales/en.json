@@ -102,6 +102,22 @@
     "instruction5": "Answer is only saved when you tap Next",
     "start": "Start"
   },
+  "consent": {
+    "title": "Tilli Assessment | Consent",
+    "navbarTitle": "Assessment",
+    "greeting": "Dear Parent,",
+    "description": "We (at Tilli) are conducting a series of assessments to evaluate a set of core **social-emotional learning (SEL) competencies** in your child. The series consists of two complementary assessments:",
+    "parentQuestionnaire": "A **parent-report questionnaire**, to be completed by you.",
+    "childQuestionnaire": "A **self-report questionnaire**, to be completed by your child.",
+    "dataUsageTitle": "The data collected will be used to:",
+    "dataUsage1": "Provide teachers and counselors with insights into classroom level learning and developmental needs.",
+    "dataUsage2": "Contribute to research that informs and improves classroom practices and student learning.",
+    "confidentialityTitle": "To ensure confidentiality:",
+    "confidentiality1": "All data will be **anonymized** prior to analysis and dissemination.",
+    "confidentiality2": "Personally identifiable information (e.g., your name or your child's name) will not be stored or shared.",
+    "consentInstruction": "If you provide consent, please **click the button below** to proceed. If you do not wish to participate, you may exit this screen.",
+    "iUnderstand": "I Understand"
+  },
   "parentQuestionnaire": {
     "title": "Tilli Assessment | Parent Questionnaire",
     "navbarTitle": "Parent Questionnaire",

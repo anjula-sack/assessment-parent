@@ -14,7 +14,7 @@ export default function Page() {
   )
 }
 
-const schools = ['Avalon Heights, Mumbai']
+const schools = ['School 1', 'School 2', 'School 3']
 
 const grades = ['Grade 1']
 
@@ -42,6 +42,7 @@ function ParentQuestionnaire() {
   const searchParams = useSearchParams()
   const testType = searchParams.get('testType') || 'PRE'
 
+  const [consentGiven, setConsentGiven] = useState(false)
   const [formData, setFormData] = useState({
     school: schools[0],
     grade: grades[0],
@@ -243,6 +244,144 @@ function ParentQuestionnaire() {
     1: t('parentQuestionnaire.sometimes'),
     2: t('parentQuestionnaire.mostOfTheTime'),
     3: t('parentQuestionnaire.almostAlways'),
+  }
+
+  const handleConsent = () => {
+    setConsentGiven(true)
+  }
+
+  const ConsentScreen = () => (
+    <div className="min-h-screen flex flex-col">
+      {/* Header */}
+      <div className="bg-primary-400 w-full px-4">
+        <div className="flex justify-between items-center w-full">
+          <Link href="/">
+            <p className="text-md md:text-xl text-white font-semibold p-3">
+              {t('consent.navbarTitle')}
+            </p>
+          </Link>
+          <LanguageDropdown />
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-6 py-8">
+        <div className="rounded-2xl p-6 md:p-8 w-full max-w-2xl ">
+          {/* Greeting */}
+          <h1 className="text-2xl md:text-3xl font-bold text-primary-700 text-center mb-6">
+            {t('consent.greeting')}
+          </h1>
+
+          {/* Main Content */}
+          <div className="space-y-4 text-gray-700 leading-relaxed">
+            {/* Description */}
+            <p
+              className="text-base md:text-lg"
+              dangerouslySetInnerHTML={{
+                __html: t('consent.description').replace(
+                  /\*\*(.*?)\*\*/g,
+                  '<strong>$1</strong>',
+                ),
+              }}
+            />
+
+            {/* Assessment Types */}
+            <div className="ml-4 space-y-2">
+              <p className="flex items-start">
+                <span className="text-primary-600 mr-2">•</span>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: t('consent.parentQuestionnaire').replace(
+                      /\*\*(.*?)\*\*/g,
+                      '<strong>$1</strong>',
+                    ),
+                  }}
+                />
+              </p>
+              <p className="flex items-start">
+                <span className="text-primary-600 mr-2">•</span>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: t('consent.childQuestionnaire').replace(
+                      /\*\*(.*?)\*\*/g,
+                      '<strong>$1</strong>',
+                    ),
+                  }}
+                />
+              </p>
+            </div>
+
+            {/* Data Usage */}
+            <div>
+              <p className="font-semibold text-gray-800 mb-2">
+                {t('consent.dataUsageTitle')}
+              </p>
+              <div className="ml-4 space-y-2">
+                <p className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span>{t('consent.dataUsage1')}</span>
+                </p>
+                <p className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span>{t('consent.dataUsage2')}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Confidentiality */}
+            <div>
+              <p className="font-semibold text-gray-800 mb-2">
+                {t('consent.confidentialityTitle')}
+              </p>
+              <div className="ml-4 space-y-2">
+                <p className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: t('consent.confidentiality1').replace(
+                        /\*\*(.*?)\*\*/g,
+                        '<strong>$1</strong>',
+                      ),
+                    }}
+                  />
+                </p>
+                <p className="flex items-start">
+                  <span className="text-primary-600 mr-2">•</span>
+                  <span>{t('consent.confidentiality2')}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Consent Instruction */}
+            <p className="text-base md:text-lg pt-4 border-t border-gray-200">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: t('consent.consentInstruction').replace(
+                    /\*\*(.*?)\*\*/g,
+                    '<strong>$1</strong>',
+                  ),
+                }}
+              />
+            </p>
+          </div>
+
+          {/* Button */}
+          <div className="text-center mt-8">
+            <button
+              onClick={handleConsent}
+              className="rounded-2xl bg-primary-700 px-8 py-3 font-medium text-white hover:from-primary-600 hover:to-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-300 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              {t('consent.iUnderstand')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  // Show consent screen first, then questionnaire
+  if (!consentGiven) {
+    return <ConsentScreen />
   }
 
   return (
