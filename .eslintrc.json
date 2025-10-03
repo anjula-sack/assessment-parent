@@ -1,0 +1,15 @@
+{
+  "extends": ["next/core-web-vitals",  "eslint-config-prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "@next/next/no-img-element": 0
+  },
+  "plugins": [
+    "eslint-plugin-prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

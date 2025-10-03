@@ -1,0 +1,220 @@
+{
+  "common": {
+    "next": "Next",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "yes": "Yes",
+    "no": "No",
+    "backToHome": "Back to Home",
+    "selectSchool": "Select School",
+    "selectGrade": "Select Grade",
+    "selectSection": "Select Section",
+    "iDoNotKnow": "I do not know"
+  },
+  "login": {
+    "title": "Tilli Assessment | Sign Up",
+    "parentDetails": "Parent Details",
+    "enterDetails": "Enter Details",
+    "school": "School",
+    "grade": "Grade",
+    "section": "Section",
+    "error": "Failed to login. Please try again."
+  },
+  "assessment": {
+    "title": "tilli Assessment",
+    "submitting": "Submitting...",
+    "thankYou": "Thank you for playing!",
+    "yayDone": "Yay you are done!",
+    "didYouHaveFun": "Did you have fun doing this?",
+    "questions": {
+      "q1": "How do you think this child feels?",
+      "q2": "Which would you choose?",
+      "q3": "If the tower falls, what should they do?",
+      "q4": "What can they say to get help?",
+      "q5": "What would you do?",
+      "q6": "How do you think she feels?",
+      "q7": "What can you say to help?",
+      "q8": "What should you do?",
+      "q9": "What can help them feel better?",
+      "q10": "What should they do?",
+      "q11": "What are you good at?",
+      "q12": "What would you like to get better at?"
+    },
+    "answers": {
+      "happy": "Happy",
+      "sad": "Sad",
+      "angry": "Angry",
+      "apple": "Apple",
+      "cookie": "Cookie",
+      "iDoNotLikeEither": "I do not like either",
+      "tryAgain": "Try Again",
+      "cryAndStop": "Cry and stop",
+      "walkAway": "Walk away",
+      "canYouHelpMe": "Can you help me?",
+      "stayQuiet": "Stay quiet",
+      "iGiveUp": "I give up",
+      "helpHerUp": "Help her up",
+      "giveHerAHug": "Give her a hug",
+      "mad": "Mad",
+      "areYouOkay": "Are you okay?",
+      "stopCrying": "Stop crying",
+      "nothing": "Nothing",
+      "takeTurns": "Take turns",
+      "tellATeacher": "Tell a teacher",
+      "grabItBack": "Grab it back",
+      "takeDeepBreaths": "Take deep breaths",
+      "hitSomething": "Hit something",
+      "scream": "Scream",
+      "waitTheirTurn": "Wait their turn",
+      "pushToTheFront": "Push to the front",
+      "leave": "Leave",
+      "drawingOrArt": "Drawing or art",
+      "sportsOrGames": "Sports or games",
+      "helpingOthers": "Helping others",
+      "readingOrWriting": "Reading or writing",
+      "iAmNotSureYet": "I am not sure yet",
+      "talkingToOthers": "Talking to others",
+      "controllingMyFeelings": "Controlling my feelings",
+      "iDoNotKnowYet": "I do not know yet"
+    }
+  },
+  "language": {
+    "selectLanguage": "Select Language",
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "home": {
+    "title": "Assessment",
+    "hello": "Hello!",
+    "welcome": "Welcome to your emotional assessment :)",
+    "start": "Start"
+  },
+  "instructions": {
+    "title": "Assessment",
+    "kidsTurn": "It is the kid's turn!",
+    "play": "PLAY",
+    "readInstructions": "Read the instructions carefully",
+    "instructionsTitle": "Here are the instructions to the assessment",
+    "instruction1": "Read or listen to each question carefully.",
+    "instruction2": "Read or listen to the options one by one.",
+    "instruction3": "Take your time for each question, no need to rush.",
+    "instruction4": "Tap on the audio icon to listen.",
+    "instruction5": "Answer is only saved when you tap Next",
+    "start": "Start"
+  },
+  "parentQuestionnaire": {
+    "title": "Tilli Assessment | Parent Questionnaire",
+    "navbarTitle": "Parent Questionnaire",
+    "onlyParents": "ONLY parents / guardians are supposed to fill this.",
+    "section1": "SECTION 1: DEMOGRAPHIC DETAILS",
+    "section2": "SECTION 2: UNDERSTANDING YOUR CHILD",
+    "parentName": "What is your name?",
+    "childSex": "What is the sex of your child?",
+    "childDob": "What is the date of birth of your child?",
+    "choose": "Choose",
+    "female": "Female",
+    "male": "Male",
+    "other": "Other",
+    "yourAnswer": "Your Answer",
+    "repeatedGrade": "Has your child ever repeated a grade?",
+    "hearingDifficulty": "Does your child have HEARING DIFFICULTY?",
+    "rememberingDifficulty": "Does your child have REMEMBERING DIFFICULTY?",
+    "communicationDifficulty": "Does your child have COMMUNICATION DIFFICULTY?",
+    "yes": "Yes",
+    "no": "No",
+    "never": "Never",
+    "sometimes": "Sometimes",
+    "mostOfTheTime": "Most of the time",
+    "almostAlways": "Almost always",
+    "submitting": "Submitting...",
+    "submit": "Submit",
+    "error": "Failed to submit. Please try again.",
+    "thankYou": "Thank you for submitting the form!",
+    "submissionSuccess": "Your response has been recorded successfully.",
+    "demographic": {
+      "q1": "How are you related to the child?",
+      "q2": "How old are you?",
+      "q3": "What is the highest level of education you have completed?",
+      "q4": "What is your current occupation?",
+      "q5": "What is your annual household income?",
+      "q6": "How many of your children live at home?",
+      "q7": "How many adults live in your household?",
+      "q8": "Which languages are spoken at home? (Select all that apply or write others)",
+      "q9": "How often do you read to your child each week?",
+      "q10": "What types of screen activities does your child engage in? (Select all that apply)",
+      "q11": "On average, how much time does your child spend on screens per day?"
+    },
+    "demographicOptions": {
+      "relation": {
+        "father": "Father",
+        "mother": "Mother",
+        "grandparent": "Grandparent",
+        "other": "Other"
+      },
+      "education": {
+        "none": "None",
+        "primary": "Primary school",
+        "middle": "Middle school",
+        "high": "High school",
+        "bachelor": "Bachelor's degree",
+        "master": "Master's degree",
+        "doctorate": "Doctorate"
+      },
+      "occupation": {
+        "professional": "Professional",
+        "skilled": "Skilled labor",
+        "unskilled": "Unskilled labor",
+        "unemployed": "Unemployed",
+        "other": "Other"
+      },
+      "income": {
+        "less5000": "Less than 5,000 JOD",
+        "5000to9999": "5,000 – 9,999 JOD",
+        "10000to14999": "10,000 – 14,999 JOD",
+        "15000to19999": "15,000 – 19,999 JOD",
+        "20000to24999": "20,000 – 24,999 JOD",
+        "25000plus": "25,000 JOD or more"
+      },
+      "languages": {
+        "arabic": "Arabic",
+        "english": "English",
+        "french": "French",
+        "other": "Other"
+      },
+      "readingFrequency": {
+        "never": "0 times (Never)",
+        "rarely": "1–2 times (Rarely)",
+        "sometimes": "3–4 times (Sometimes)",
+        "often": "5–6 times (Often)",
+        "daily": "Every day (Daily)"
+      },
+      "screenActivities": {
+        "videos": "Watching videos (YouTube, TV, etc.)",
+        "games": "Playing games (mobile, tablet, or computer)",
+        "videoCalls": "Video calls with family or friends",
+        "educational": "Educational apps or learning programs",
+        "other": "Other"
+      },
+      "screenTime": {
+        "none": "No screen time",
+        "less1hour": "Less than 1 hour",
+        "1to2hours": "1–2 hours",
+        "2to3hours": "2–3 hours",
+        "more4hours": "More than 4 hours"
+      }
+    },
+    "questions": {
+      "q1": "Does your child tell you how they or others feel using words? (e.g., Says \"I'm scared,\" \"I feel happy,\" or \" you look angry\")",
+      "q2": "Does your child say what they like or don't like in a clear way? (e.g., \"I want to rest,\" \"I don't like loud noise\")",
+      "q3": "Does your child keep trying and finish tasks, even when they're hard? (e.g., Finishes a puzzle or keeps working after making a mistake)",
+      "q4": "Does your child ask an adult or friend for help when they are stuck or upset? (e.g., Says \"Can you help me?\" or \"I need help\")",
+      "q5": "Does your child notice when someone is upset and respond in a kind way? (e.g., Asks \"Are you okay?\" or gives a hug)",
+      "q6": "Does your child try to make someone feel better when they are sad or hurt? (e.g., Offers a hug, talks to them, or sits beside them)",
+      "q7": "Can your child fix problems with other children without needing an adult? (e.g., Takes turns, shares, or talks it out)",
+      "q8": "Does your child calm themselves down when they are upset or angry? (e.g., Takes deep breaths, walks away, or asks for help)",
+      "q9": "Does your child stop and think before acting when upset or excited? (e.g., Waits instead of yelling or grabbing something)",
+      "q10": "Does your child talk about things they're good at or want to improve? (e.g., \"I'm good at drawing,\" \"I want to get better at reading\")",
+      "q11": "Does your child talk about things they want to learn or get better at? (e.g., \"I want to learn harder words\")"
+    }
+  }
+}
