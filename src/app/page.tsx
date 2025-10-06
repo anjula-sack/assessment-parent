@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React, { useState, Suspense } from 'react'
+import React, { useState, Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { createParentAssessment } from '@/services/appwrite'
@@ -39,8 +39,10 @@ const skillQuestionMap = {
 
 function ParentQuestionnaire() {
   const { t, i18n } = useTranslation()
+  const router = useRouter()
   const searchParams = useSearchParams()
   const testType = searchParams.get('testType') || 'PRE'
+  const langParam = searchParams.get('lang')
 
   const [consentGiven, setConsentGiven] = useState(false)
   const [formData, setFormData] = useState({
@@ -75,6 +77,25 @@ function ParentQuestionnaire() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  // Handle URL language parameter
+  useEffect(() => {
+    if (
+      langParam &&
+      ['en', 'ar'].includes(langParam) &&
+      i18n.language !== langParam
+    ) {
+      i18n.changeLanguage(langParam)
+    }
+  }, [langParam, i18n])
+
+  // Function to update URL with language parameter
+  const updateUrlWithLanguage = (language: string) => {
+    const currentParams = new URLSearchParams(searchParams.toString())
+    currentParams.set('lang', language)
+    const newUrl = `${window.location.pathname}?${currentParams.toString()}`
+    router.replace(newUrl)
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -152,7 +173,7 @@ function ParentQuestionnaire() {
       const data = {
         school: formData.school,
         grade: formData.grade,
-        overallScore: totalScore,
+        overallScore: totalScore / 8,
         skillScores: JSON.stringify(skillScores),
         demographics: JSON.stringify({
           d1_relation: formData.d1_relation,
@@ -255,12 +276,10 @@ function ParentQuestionnaire() {
       {/* Header */}
       <div className="bg-primary-400 w-full px-4">
         <div className="flex justify-between items-center w-full">
-          <Link href="/">
-            <p className="text-md md:text-xl text-white font-semibold p-3">
-              {t('consent.navbarTitle')}
-            </p>
-          </Link>
-          <LanguageDropdown />
+          <p className="text-md md:text-xl text-white font-semibold p-3">
+            {t('consent.navbarTitle')}
+          </p>
+          <LanguageDropdown onLanguageChange={updateUrlWithLanguage} />
         </div>
       </div>
 
@@ -389,12 +408,10 @@ function ParentQuestionnaire() {
       <title>{t('parentQuestionnaire.title')}</title>
       <div className="bg-primary-400 w-full px-4">
         <div className="flex justify-between items-center w-full">
-          <Link href="/">
-            <p className="text-md md:text-xl text-white font-semibold p-3">
-              {t('parentQuestionnaire.navbarTitle')}
-            </p>
-          </Link>
-          <LanguageDropdown />
+          <p className="text-md md:text-xl text-white font-semibold p-3">
+            {t('parentQuestionnaire.navbarTitle')}
+          </p>
+          <LanguageDropdown onLanguageChange={updateUrlWithLanguage} />
         </div>
       </div>
       <div className="mx-auto flex flex-col items-center justify-center px-4 md:px-6 py-4 md:py-8 text-gray-500 overflow-auto min-h-screen">
@@ -407,12 +424,6 @@ function ParentQuestionnaire() {
             <p className="text-gray-600 text-lg">
               {t('parentQuestionnaire.submissionSuccess')}
             </p>
-            <Link
-              href="/"
-              className="inline-block mt-6 rounded-2xl bg-primary-700 px-6 py-3 font-medium text-white hover:bg-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-300 transition-colors"
-            >
-              {t('common.backToHome')}
-            </Link>
           </div>
         ) : (
           <form
@@ -528,7 +539,6 @@ function ParentQuestionnaire() {
                   onChange={handleChange}
                   placeholder={t('parentQuestionnaire.yourAnswer')}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 placeholder-gray-400 font-medium"
-                  min="18"
                   max="100"
                   required
                 />

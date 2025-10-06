@@ -7,7 +7,13 @@ const languages = [
   { code: 'ar', name: 'العربية', flag: '🇸🇦' },
 ]
 
-export default function LanguageDropdown() {
+interface LanguageDropdownProps {
+  onLanguageChange?: (language: string) => void
+}
+
+export default function LanguageDropdown({
+  onLanguageChange,
+}: LanguageDropdownProps) {
   const { i18n, t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -16,6 +22,9 @@ export default function LanguageDropdown() {
 
   const handleLanguageChange = (languageCode: string) => {
     i18n.changeLanguage(languageCode)
+    if (onLanguageChange) {
+      onLanguageChange(languageCode)
+    }
     setIsOpen(false)
   }
 
