@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState, Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
-import { createParentAssessment } from '@/services/appwrite'
+import { createParentAssessment, updateScores } from '@/services/appwrite'
 import LanguageDropdown from './components/languageDropdown'
 
 export default function Page() {
@@ -204,6 +204,14 @@ function ParentQuestionnaire() {
         testType,
       }
       await createParentAssessment(data)
+      await updateScores({
+        skillScores,
+        school: formData.school,
+        grade: formData.grade,
+        assessment: 'parent',
+        testType,
+        overallScore: totalScore / 8,
+      })
       setIsSubmitted(true)
     } catch (err) {
       console.error(err)
@@ -893,20 +901,7 @@ function ParentQuestionnaire() {
             <div className="text-center mt-6">
               <button
                 type="submit"
-                disabled={
-                  !formData.d1_relation ||
-                  !formData.d2_age ||
-                  !formData.d3_education ||
-                  !formData.d4_occupation ||
-                  !formData.d5_income ||
-                  !formData.d6_childrenAtHome ||
-                  !formData.d7_adultsAtHome ||
-                  formData.d8_languages.length === 0 ||
-                  !formData.d9_readingFrequency ||
-                  formData.d10_screenActivities.length === 0 ||
-                  !formData.d11_screenTime ||
-                  isLoading
-                }
+                disabled={isLoading}
                 className="rounded-2xl bg-primary-700 px-6 py-2 font-medium text-white hover:bg-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800"
               >
                 {isLoading
