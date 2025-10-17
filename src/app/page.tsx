@@ -23,13 +23,13 @@ const skillQuestionMap = {
   social_management: ['q8_self_regulation', 'q9_impulse_control'],
   social_awareness: ['q5_empathy', 'q6_comforting'],
   relationship_skills: ['q7_problem_solving'],
-  responsible_decision_making: ['q4_help_seeking', 'q9_impulse_control'],
+  responsible_decision_making: ['q9_impulse_control'],
   metacognition: [
     'q11_learning_goals',
     'q10_self_awareness',
     'q11_learning_goals',
   ],
-  empathy: ['q6_comforting', 'q5_empathy', 'q7_problem_solving'],
+  empathy: ['q5_empathy', 'q6_comforting', 'q7_problem_solving'],
   critical_thinking: [
     'q3_persistence',
     'q4_help_seeking',
@@ -173,7 +173,7 @@ function ParentQuestionnaire() {
       const data = {
         school: formData.school,
         grade: formData.grade,
-        overallScore: totalScore / 8,
+        overallScore: totalScore,
         skillScores: JSON.stringify(skillScores),
         demographics: JSON.stringify({
           d1_relation: formData.d1_relation,
@@ -210,7 +210,7 @@ function ParentQuestionnaire() {
         grade: formData.grade,
         assessment: 'parent',
         testType,
-        overallScore: totalScore / 8,
+        overallScore: totalScore,
       })
       setIsSubmitted(true)
     } catch (err) {
