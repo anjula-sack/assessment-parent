@@ -106,7 +106,7 @@
   "consent": {
     "title": "Tilli Assessment | Consent",
     "navbarTitle": "Assessment",
-    "greeting": "Dear Parent,",
+    "greeting": "Dear Parent a quick reminder,",
     "description": "We (at Tilli) are conducting a series of assessments to evaluate a set of core **social-emotional learning (SEL) competencies** in your child. The series consists of two complementary assessments:",
     "parentQuestionnaire": "A **parent-report questionnaire**, to be completed by you.",
     "childQuestionnaire": "A **self-report questionnaire**, to be completed by your child.",

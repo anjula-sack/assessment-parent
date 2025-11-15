@@ -15,6 +15,12 @@ export default function Page() {
   )
 }
 
+type VideoIntroProps = {
+  videoSrc: string
+  onSkip: () => void
+  onEnded: () => void
+}
+
 const schools = ['School 1', 'School 2', 'School 3']
 
 const grades = ['Grade 1']
@@ -291,13 +297,55 @@ function ParentQuestionnaire() {
     return `https://assessment-student.vercel.app/?${params.toString()}`
   }, [normalizedLang, testType])
 
-  if (!hasWatchedVideo && shouldShowVideo) {
+  if (consentGiven && !hasWatchedVideo && shouldShowVideo) {
     return (
       <VideoIntro
         videoSrc={parentVideo}
         onSkip={() => setHasWatchedVideo(true)}
         onEnded={() => setHasWatchedVideo(true)}
       />
+    )
+  }
+
+  function VideoIntro({ videoSrc, onSkip, onEnded }: VideoIntroProps) {
+    const { t } = useTranslation()
+    return (
+      <div className="min-h-screen flex flex-col">
+        {/* Header */}
+        <div className="bg-primary-400 w-full px-4">
+          <div className="flex justify-between items-center w-full">
+            <p className="text-md md:text-xl text-white font-semibold p-3">
+              {t('consent.navbarTitle')}
+            </p>
+            <LanguageDropdown onLanguageChange={updateUrlWithLanguage} />
+          </div>
+        </div>
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 text-white">
+          <div className="w-full max-w-2xl">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+              <div className="w-full aspect-video">
+                <video
+                  src={videoSrc}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain bg-black"
+                  onEnded={onEnded}
+                />
+              </div>
+              <button
+                onClick={onSkip}
+                className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-full text-sm uppercase tracking-wide"
+              >
+                {t('common.skip')}
+              </button>
+            </div>
+            <p className="text-center text-md text-black mt-4">
+              {t('videoIntro.description')}
+            </p>
+          </div>
+        </div>
+      </div>
     )
   }
 
@@ -428,7 +476,6 @@ function ParentQuestionnaire() {
     </div>
   )
 
-  // Show consent screen first, then questionnaire
   if (!consentGiven) {
     return <ConsentScreen />
   }
@@ -941,42 +988,5 @@ function ParentQuestionnaire() {
         )}
       </div>
     </section>
-  )
-}
-
-type VideoIntroProps = {
-  videoSrc: string
-  onSkip: () => void
-  onEnded: () => void
-}
-
-function VideoIntro({ videoSrc, onSkip, onEnded }: VideoIntroProps) {
-  const { t } = useTranslation()
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 text-white">
-      <div className="w-full max-w-2xl">
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20">
-          <div className="w-full aspect-video">
-            <video
-              src={videoSrc}
-              controls
-              autoPlay
-              playsInline
-              className="w-full h-full object-contain bg-black"
-              onEnded={onEnded}
-            />
-          </div>
-          <button
-            onClick={onSkip}
-            className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-full text-sm uppercase tracking-wide"
-          >
-            {t('common.skip')}
-          </button>
-        </div>
-        <p className="text-center text-md text-black mt-4">
-          {t('videoIntro.description')}
-        </p>
-      </div>
-    </div>
   )
 }
