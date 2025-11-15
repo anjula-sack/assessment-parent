@@ -3,6 +3,7 @@
     "next": "Next",
     "submit": "Submit",
     "loading": "Loading...",
+    "skip": "Skip",
     "yes": "Yes",
     "no": "No",
     "backToHome": "Back to Home",
@@ -118,6 +119,10 @@
     "consentInstruction": "If you provide consent, please **click the button below** to proceed. If you do not wish to participate, you may exit this screen.",
     "iUnderstand": "I Understand"
   },
+  "videoIntro": {
+    "description": "Please watch this short message before continuing."
+  },
+
   "parentQuestionnaire": {
     "title": "Tilli Assessment | Parent Questionnaire",
     "navbarTitle": "Parent Questionnaire",

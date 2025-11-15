@@ -1,10 +1,11 @@
 'use client'
 import Link from 'next/link'
-import React, { useState, Suspense, useEffect } from 'react'
+import React, { useState, Suspense, useEffect, useMemo } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { createParentAssessment, updateScores } from '@/services/appwrite'
 import LanguageDropdown from './components/languageDropdown'
+import parentVideo from '@/assets/videos/ar/parent.mp4'
 
 export default function Page() {
   return (
@@ -43,6 +44,9 @@ function ParentQuestionnaire() {
   const searchParams = useSearchParams()
   const testType = searchParams.get('testType') || 'PRE'
   const langParam = searchParams.get('lang')
+  const normalizedLang = langParam || i18n.language || 'en'
+  const shouldShowVideo = normalizedLang === 'ar'
+  const [hasWatchedVideo, setHasWatchedVideo] = useState(() => !shouldShowVideo)
 
   const [consentGiven, setConsentGiven] = useState(false)
   const [formData, setFormData] = useState({
@@ -279,6 +283,24 @@ function ParentQuestionnaire() {
     setConsentGiven(true)
   }
 
+  const childAssessmentUrl = useMemo(() => {
+    const params = new URLSearchParams({
+      testType,
+      lang: normalizedLang,
+    })
+    return `https://assessment-student.vercel.app/?${params.toString()}`
+  }, [normalizedLang, testType])
+
+  if (!hasWatchedVideo && shouldShowVideo) {
+    return (
+      <VideoIntro
+        videoSrc={parentVideo}
+        onSkip={() => setHasWatchedVideo(true)}
+        onEnded={() => setHasWatchedVideo(true)}
+      />
+    )
+  }
+
   const ConsentScreen = () => (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -424,14 +446,19 @@ function ParentQuestionnaire() {
       </div>
       <div className="mx-auto flex flex-col items-center justify-center px-4 md:px-6 py-4 md:py-8 text-gray-500 overflow-auto min-h-screen">
         {isSubmitted ? (
-          <div className="bg-white rounded-2xl p-8 w-full max-w-md md:max-w-lg mt-4 text-center space-y-4">
-            <div className="text-6xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold text-primary-700 mb-2">
-              {t('parentQuestionnaire.thankYou')}
+          <div className="bg-white rounded-2xl p-8 w-full max-w-2xl mt-4 text-center space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-700">
+              Thank you for completing, now it is your child&apos;s turn
             </h2>
             <p className="text-gray-600 text-lg">
               {t('parentQuestionnaire.submissionSuccess')}
             </p>
+            <button
+              onClick={() => router.push(childAssessmentUrl)}
+              className="rounded-2xl bg-primary-700 px-8 py-3 font-medium text-white hover:bg-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-300 transition-all duration-200"
+            >
+              take me to the assessment
+            </button>
           </div>
         ) : (
           <form
@@ -914,5 +941,42 @@ function ParentQuestionnaire() {
         )}
       </div>
     </section>
+  )
+}
+
+type VideoIntroProps = {
+  videoSrc: string
+  onSkip: () => void
+  onEnded: () => void
+}
+
+function VideoIntro({ videoSrc, onSkip, onEnded }: VideoIntroProps) {
+  const { t } = useTranslation()
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 text-white">
+      <div className="w-full max-w-2xl">
+        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+          <div className="w-full aspect-video">
+            <video
+              src={videoSrc}
+              controls
+              autoPlay
+              playsInline
+              className="w-full h-full object-contain bg-black"
+              onEnded={onEnded}
+            />
+          </div>
+          <button
+            onClick={onSkip}
+            className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-full text-sm uppercase tracking-wide"
+          >
+            {t('common.skip')}
+          </button>
+        </div>
+        <p className="text-center text-md text-black mt-4">
+          {t('videoIntro.description')}
+        </p>
+      </div>
+    </div>
   )
 }
