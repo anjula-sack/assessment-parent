@@ -41,6 +41,8 @@ export const updateScores = async ({
   skillScores,
   school,
   grade,
+  section,
+  zone,
   assessment,
   overallScore,
   testType,
@@ -50,12 +52,14 @@ export const updateScores = async ({
     categoryLevels[category] = getLevel(score)
   }
 
-  const agg = await databases.listDocuments(
+  let agg = await databases.listDocuments(
     process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
     process.env.NEXT_PUBLIC_APPWRITE_SCORES_COLLECTION_ID,
     [
       Query.equal('school', school),
       Query.equal('grade', grade),
+      Query.equal('section', section),
+      Query.equal('zone', zone),
       Query.equal('assessment', assessment),
       Query.equal('testType', testType),
     ],
@@ -84,6 +88,19 @@ export const updateScores = async ({
         overall_level_distribution: JSON.stringify(overallDist),
         category_level_distributions: JSON.stringify(categoryDist),
       },
+    )
+
+    agg = await databases.listDocuments(
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+      process.env.NEXT_PUBLIC_APPWRITE_SCORES_COLLECTION_ID,
+      [
+        Query.equal('school', school),
+        Query.equal('grade', grade),
+        Query.equal('section', section),
+        Query.equal('zone', zone),
+        Query.equal('assessment', assessment),
+        Query.equal('testType', testType),
+      ],
     )
   }
 

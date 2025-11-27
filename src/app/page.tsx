@@ -1,5 +1,7 @@
 'use client'
 import Link from 'next/link'
+import arData from '@/i18n/locales/ar.json'
+import enData from '@/i18n/locales/en.json'
 import React, { useState, Suspense, useEffect, useMemo } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -21,27 +23,93 @@ type VideoIntroProps = {
   onEnded: () => void
 }
 
-const schools = ['School 1', 'School 2', 'School 3']
-
-const grades = ['Grade 1']
+const understandingQuestions = [
+  {
+    key: 'question_1',
+  },
+  {
+    key: 'question_2',
+  },
+  {
+    key: 'question_3',
+  },
+  {
+    key: 'question_4',
+  },
+  {
+    key: 'question_5',
+  },
+  {
+    key: 'question_6',
+  },
+  {
+    key: 'question_7',
+  },
+  {
+    key: 'question_8',
+  },
+  {
+    key: 'question_9',
+  },
+  {
+    key: 'question_10',
+  },
+  {
+    key: 'question_11',
+  },
+  {
+    key: 'question_12',
+  },
+  {
+    key: 'question_13',
+  },
+  {
+    key: 'question_14',
+  },
+  {
+    key: 'question_15',
+  },
+  {
+    key: 'question_16',
+  },
+  {
+    key: 'question_17',
+  },
+]
 
 const skillQuestionMap = {
-  self_awareness: ['q1_feelings', 'q2_preferences'],
-  social_management: ['q8_self_regulation', 'q9_impulse_control'],
-  social_awareness: ['q5_empathy', 'q6_comforting'],
-  relationship_skills: ['q7_problem_solving'],
-  responsible_decision_making: ['q9_impulse_control'],
-  metacognition: [
-    'q11_learning_goals',
-    'q10_self_awareness',
-    'q11_learning_goals',
+  self_awareness: ['question_3'],
+  social_management: [
+    'question_5',
+    'question_7',
+    'question_8',
+    'question_9',
+    'question_14',
   ],
-  empathy: ['q5_empathy', 'q6_comforting', 'q7_problem_solving'],
-  critical_thinking: [
-    'q3_persistence',
-    'q4_help_seeking',
-    'q9_impulse_control',
+  social_awareness: ['question_6', 'question_11', 'question_10', 'question_17'],
+  relationship_skills: [
+    'question_12',
+    'question_13',
+    'question_3',
+    'question_4',
+    'question_16',
   ],
+  responsible_decision_making: [
+    'question_4',
+    'question_8',
+    'question_14',
+    'question_15',
+  ],
+  metacognition: ['question_5', 'question_9'],
+  empathy: [
+    'question_5',
+    'question_10',
+    'question_11',
+    'question_12',
+    'question_13',
+    'question_16',
+  ],
+  critical_thinking: ['question_15', 'question_17'],
 }
 
 function ParentQuestionnaire() {
@@ -56,37 +124,55 @@ function ParentQuestionnaire() {
 
   const [consentGiven, setConsentGiven] = useState(false)
   const [formData, setFormData] = useState({
-    school: schools[0],
-    grade: grades[0],
+    school: '',
+    grade: '',
+    section: '',
+    zone: '',
     // Section 1: Demographic details
-    d1_relation: '',
-    d2_age: '',
-    d3_education: '',
-    d4_occupation: '',
-    d5_income: '',
-    d6_childrenAtHome: '',
-    d7_adultsAtHome: '',
-    d8_languages: [],
-    d9_readingFrequency: '',
-    d10_screenActivities: [],
-    d11_screenTime: '',
+    d1: '',
+    d2: '',
+    d3: '',
+    d4: '',
+    d5: '',
+    d6: '',
+    d7: '',
+    d8: '',
+    d9: [] as string[],
+    d10: '',
+    d11: [] as string[],
+    d12: '',
+    d13: '',
+    d14: '',
+    d15: '',
     // Section 2: Understanding your child
-    q1_feelings: '',
-    q2_preferences: '',
-    q3_persistence: '',
-    q4_help_seeking: '',
-    q5_empathy: '',
-    q6_comforting: '',
-    q7_problem_solving: '',
-    q8_self_regulation: '',
-    q9_impulse_control: '',
-    q10_self_awareness: '',
-    q11_learning_goals: '',
+    question_1: '',
+    question_2: '',
+    question_3: '',
+    question_4: '',
+    question_5: '',
+    question_6: '',
+    question_7: '',
+    question_8: '',
+    question_9: '',
+    question_10: '',
+    question_11: '',
+    question_12: '',
+    question_13: '',
+    question_14: '',
+    question_15: '',
+    question_16: '',
+    question_17: '',
   })
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const data: any = i18n.language === 'ar' ? arData : enData
+
+  const schools = formData.zone ? data.zonesToSchools[formData.zone] : []
+  const gradeOptions = ['grade1']
+  const sectionOptions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
 
   // Handle URL language parameter
   useEffect(() => {
@@ -183,38 +269,52 @@ function ParentQuestionnaire() {
       const data = {
         school: formData.school,
         grade: formData.grade,
+        section: formData.section,
+        zone: formData.zone,
         overallScore: totalScore,
         skillScores: JSON.stringify(skillScores),
         demographics: JSON.stringify({
-          d1_relation: formData.d1_relation,
-          d2_age: formData.d2_age,
-          d3_education: formData.d3_education,
-          d4_occupation: formData.d4_occupation,
-          d5_income: formData.d5_income,
-          d6_childrenAtHome: formData.d6_childrenAtHome,
-          d7_adultsAtHome: formData.d7_adultsAtHome,
-          d8_languages: formData.d8_languages,
-          d9_readingFrequency: formData.d9_readingFrequency,
-          d10_screenActivities: formData.d10_screenActivities,
-          d11_screenTime: formData.d11_screenTime,
+          d1: formData.d1,
+          d2: formData.d2,
+          d3: formData.d3,
+          d4: formData.d4,
+          d5: formData.d5,
+          d6: formData.d6,
+          d7: formData.d7,
+          d8: formData.d8,
+          d9: formData.d9,
+          d10: formData.d10,
+          d11: formData.d11,
+          d12: formData.d12,
+          d13: formData.d13,
+          d14: formData.d14,
+          d15: formData.d15,
         }),
         answers: JSON.stringify({
-          q1_feelings: formData.q1_feelings,
-          q2_preferences: formData.q2_preferences,
-          q3_persistence: formData.q3_persistence,
-          q4_help_seeking: formData.q4_help_seeking,
-          q5_empathy: formData.q5_empathy,
-          q6_comforting: formData.q6_comforting,
-          q7_problem_solving: formData.q7_problem_solving,
-          q8_self_regulation: formData.q8_self_regulation,
-          q9_impulse_control: formData.q9_impulse_control,
-          q10_self_awareness: formData.q10_self_awareness,
-          q11_learning_goals: formData.q11_learning_goals,
+          question_1: formData.question_1,
+          question_2: formData.question_2,
+          question_3: formData.question_3,
+          question_4: formData.question_4,
+          question_5: formData.question_5,
+          question_6: formData.question_6,
+          question_7: formData.question_7,
+          question_8: formData.question_8,
+          question_9: formData.question_9,
+          question_10: formData.question_10,
+          question_11: formData.question_11,
+          question_12: formData.question_12,
+          question_13: formData.question_13,
+          question_14: formData.question_14,
+          question_15: formData.question_15,
+          question_16: formData.question_16,
+          question_17: formData.question_17,
         }),
         testType,
       }
       await createParentAssessment(data)
       await updateScores({
+        section: formData.section,
+        zone: formData.zone,
         skillScores,
         school: formData.school,
         grade: formData.grade,
@@ -231,59 +331,33 @@ function ParentQuestionnaire() {
     }
   }
 
-  const understandingQuestions = [
+  const answerOptions = [
     {
-      key: 'q1_feelings',
-      question: t('parentQuestionnaire.questions.q1'),
+      label: t('assessment.answers.never'),
+      value: 'never',
+      score: 1,
     },
     {
-      key: 'q2_preferences',
-      question: t('parentQuestionnaire.questions.q2'),
+      label: t('assessment.answers.rarely'),
+      value: 'rarely',
+      score: 1,
     },
     {
-      key: 'q3_persistence',
-      question: t('parentQuestionnaire.questions.q3'),
+      label: t('assessment.answers.sometimes'),
+      value: 'sometimes',
+      score: 2,
     },
     {
-      key: 'q4_help_seeking',
-      question: t('parentQuestionnaire.questions.q4'),
+      label: t('assessment.answers.often'),
+      value: 'often',
+      score: 3,
     },
     {
-      key: 'q5_empathy',
-      question: t('parentQuestionnaire.questions.q5'),
-    },
-    {
-      key: 'q6_comforting',
-      question: t('parentQuestionnaire.questions.q6'),
-    },
-    {
-      key: 'q7_problem_solving',
-      question: t('parentQuestionnaire.questions.q7'),
-    },
-    {
-      key: 'q8_self_regulation',
-      question: t('parentQuestionnaire.questions.q8'),
-    },
-    {
-      key: 'q9_impulse_control',
-      question: t('parentQuestionnaire.questions.q9'),
-    },
-    {
-      key: 'q10_self_awareness',
-      question: t('parentQuestionnaire.questions.q10'),
-    },
-    {
-      key: 'q11_learning_goals',
-      question: t('parentQuestionnaire.questions.q11'),
+      label: t('assessment.answers.always'),
+      value: 'always',
+      score: 3,
     },
   ]
-
-  const answerOptions = {
-    0: t('parentQuestionnaire.never'),
-    1: t('parentQuestionnaire.sometimes'),
-    2: t('parentQuestionnaire.mostOfTheTime'),
-    3: t('parentQuestionnaire.almostAlways'),
-  }
 
   const handleConsent = () => {
     setConsentGiven(true)
@@ -516,50 +590,115 @@ function ParentQuestionnaire() {
               {t('parentQuestionnaire.onlyParents')}
             </p>
 
-            {/* School Dropdown */}
-            <div className="bg-white rounded-2xl p-4">
-              <label className="block text-gray-700 font-semibold mb-2">
-                {t('login.school')}
-              </label>
-              <select
-                name="school"
-                value={formData.school}
-                onChange={handleChange}
-                className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
-                required
-              >
-                <option value="" disabled>
-                  {t('common.selectSchool')}
-                </option>
-                {schools.map((school) => (
-                  <option key={school} value={school}>
-                    {school}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <div className="bg-white p-4 md:p-6 rounded-xl w-full mb-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-700">
+                {t('login.enterDetails')}
+              </h3>
+              <div className="space-y-4">
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t('login.zone')} *
+                  </label>
 
-            {/* Grade Dropdown */}
-            <div className="bg-white rounded-2xl p-4">
-              <label className="block text-gray-700 font-semibold mb-2">
-                {t('login.grade')}
-              </label>
-              <select
-                name="grade"
-                value={formData.grade}
-                onChange={handleChange}
-                className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
-                required
-              >
-                <option value="" disabled>
-                  {t('common.selectGrade')}
-                </option>
-                {grades.map((grade) => (
-                  <option key={grade} value={grade}>
-                    {grade}
-                  </option>
-                ))}
-              </select>
+                  <select
+                    value={formData.zone}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        zone: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                     focus:outline-none focus:ring-2 focus:ring-[#82A4DE] 
+                     text-sm sm:text-base text-gray-900 bg-white"
+                    required
+                  >
+                    <option value="">
+                      {i18n.language === 'ar' ? 'اختر المنطقة' : 'Select Zone'}
+                    </option>
+
+                    {Object.entries(data.zones).map(([zoneId, zoneName]) => (
+                      <option key={zoneId} value={zoneId}>
+                        {zoneName as string}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {t('login.school')} *
+                </label>
+
+                <select
+                  value={formData.school}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      school: e.target.value,
+                    }))
+                  }
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md 
+                     focus:outline-none focus:ring-2 focus:ring-[#82A4DE] 
+                     text-sm sm:text-base text-gray-900 bg-white"
+                  required
+                  disabled={!formData.zone}
+                >
+                  <option value="">{t('login.selectSchool')}</option>
+
+                  {schools.map((schoolId: string) => (
+                    <option key={schoolId} value={schoolId}>
+                      {data.schools[schoolId]} {/* translated label */}
+                    </option>
+                  ))}
+                </select>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t('login.section')} *
+                  </label>
+                  <select
+                    value={formData.section}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        section: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#82A4DE] text-sm sm:text-base text-gray-900 bg-white"
+                    required
+                  >
+                    <option value="">{t('login.selectSection')}</option>
+                    {sectionOptions.map((section) => (
+                      <option key={section} value={section}>
+                        {t(`sections.${section}`)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t('login.grade')} *
+                  </label>
+                  <select
+                    value={formData.grade}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        grade: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#82A4DE] text-sm sm:text-base text-gray-900 bg-white"
+                    required
+                  >
+                    <option value="">{t('login.selectGrade')}</option>
+                    {gradeOptions.map((grade) => (
+                      <option key={grade} value={grade}>
+                        {t(`grades.${grade}`)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
 
             {/* Section 1: Demographic Details */}
@@ -575,14 +714,18 @@ function ParentQuestionnaire() {
                 </h2>
               </div>
 
-              {/* Q1: Relation to child */}
+              <p className="text-gray-700 mb-3">
+                {t('parentQuestionnaire.section1Instruction')}
+              </p>
+
+              {/* D1: Relation to child */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q1')}
+                  {t('parentQuestionnaire.demographic.d1')}
                 </label>
                 <select
-                  name="d1_relation"
-                  value={formData.d1_relation}
+                  name="d1"
+                  value={formData.d1}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
@@ -609,31 +752,51 @@ function ParentQuestionnaire() {
                 </select>
               </div>
 
-              {/* Q2: Age */}
+              {/* D2: Child date of birth */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q2')}
+                  {t('parentQuestionnaire.demographic.d2')}
                 </label>
                 <input
-                  type="number"
-                  name="d2_age"
-                  value={formData.d2_age}
+                  type="date"
+                  name="d2"
+                  value={formData.d2}
                   onChange={handleChange}
-                  placeholder={t('parentQuestionnaire.yourAnswer')}
-                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 placeholder-gray-400 font-medium"
-                  max="100"
+                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
                 />
               </div>
 
-              {/* Q3: Education */}
+              {/* D3: Child gender */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q3')}
+                  {t('parentQuestionnaire.demographic.d3')}
                 </label>
                 <select
-                  name="d3_education"
-                  value={formData.d3_education}
+                  name="d3"
+                  value={formData.d3}
+                  onChange={handleChange}
+                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
+                  required
+                >
+                  <option value="">{t('parentQuestionnaire.choose')}</option>
+                  <option value="male">
+                    {t('parentQuestionnaire.demographicOptions.gender.male')}
+                  </option>
+                  <option value="female">
+                    {t('parentQuestionnaire.demographicOptions.gender.female')}
+                  </option>
+                </select>
+              </div>
+
+              {/* D4: Education */}
+              <div className="bg-white rounded-2xl p-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  {t('parentQuestionnaire.demographic.d4')}
+                </label>
+                <select
+                  name="d4"
+                  value={formData.d4}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
@@ -673,14 +836,14 @@ function ParentQuestionnaire() {
                 </select>
               </div>
 
-              {/* Q4: Occupation */}
+              {/* D5: Occupation */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q4')}
+                  {t('parentQuestionnaire.demographic.d5')}
                 </label>
                 <select
-                  name="d4_occupation"
-                  value={formData.d4_occupation}
+                  name="d5"
+                  value={formData.d5}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
@@ -714,22 +877,27 @@ function ParentQuestionnaire() {
                 </select>
               </div>
 
-              {/* Q5: Income */}
+              {/* D6: Income */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q5')}
+                  {t('parentQuestionnaire.demographic.d6')}
                 </label>
                 <select
-                  name="d5_income"
-                  value={formData.d5_income}
+                  name="d6"
+                  value={formData.d6}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
                 >
                   <option value="">{t('parentQuestionnaire.choose')}</option>
-                  <option value="less5000">
+                  <option value="less2000">
                     {t(
-                      'parentQuestionnaire.demographicOptions.income.less5000',
+                      'parentQuestionnaire.demographicOptions.income.less2000',
+                    )}
+                  </option>
+                  <option value="2000to4999">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.income.2000to4999',
                     )}
                   </option>
                   <option value="5000to9999">
@@ -760,15 +928,15 @@ function ParentQuestionnaire() {
                 </select>
               </div>
 
-              {/* Q6: Children at home */}
+              {/* D7: Children in household */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q6')}
+                  {t('parentQuestionnaire.demographic.d7')}
                 </label>
                 <input
                   type="number"
-                  name="d6_childrenAtHome"
-                  value={formData.d6_childrenAtHome}
+                  name="d7"
+                  value={formData.d7}
                   onChange={handleChange}
                   placeholder={t('parentQuestionnaire.yourAnswer')}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 placeholder-gray-400 font-medium"
@@ -777,15 +945,15 @@ function ParentQuestionnaire() {
                 />
               </div>
 
-              {/* Q7: Adults at home */}
+              {/* D8: Adults in household */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q7')}
+                  {t('parentQuestionnaire.demographic.d8')}
                 </label>
                 <input
                   type="number"
-                  name="d7_adultsAtHome"
-                  value={formData.d7_adultsAtHome}
+                  name="d8"
+                  value={formData.d8}
                   onChange={handleChange}
                   placeholder={t('parentQuestionnaire.yourAnswer')}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 placeholder-gray-400 font-medium"
@@ -794,25 +962,23 @@ function ParentQuestionnaire() {
                 />
               </div>
 
-              {/* Q8: Languages spoken at home */}
+              {/* D9: Languages spoken at home (checkbox) */}
               <div className="bg-white rounded-2xl p-4">
                 <p className="text-gray-700 font-semibold mb-3">
-                  {t('parentQuestionnaire.demographic.q8')}
+                  {t('parentQuestionnaire.demographic.d9')}
                 </p>
                 <div className="space-y-2">
                   {Object.entries(
                     t('parentQuestionnaire.demographicOptions.languages', {
                       returnObjects: true,
-                    }),
+                    }) as Record<string, string>,
                   ).map(([key, value]) => (
                     <label key={key} className="flex items-center">
                       <input
                         type="checkbox"
                         value={key}
-                        checked={formData.d8_languages.includes(key)}
-                        onChange={(e) =>
-                          handleCheckboxChange(e, 'd8_languages')
-                        }
+                        checked={formData.d9.includes(key)}
+                        onChange={(e) => handleCheckboxChange(e, 'd9')}
                         className="mr-2"
                       />
                       {value}
@@ -821,14 +987,14 @@ function ParentQuestionnaire() {
                 </div>
               </div>
 
-              {/* Q9: Reading frequency */}
+              {/* D10: Reading frequency */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q9')}
+                  {t('parentQuestionnaire.demographic.d10')}
                 </label>
                 <select
-                  name="d9_readingFrequency"
-                  value={formData.d9_readingFrequency}
+                  name="d10"
+                  value={formData.d10}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
@@ -862,10 +1028,10 @@ function ParentQuestionnaire() {
                 </select>
               </div>
 
-              {/* Q10: Screen activities */}
+              {/* D11: Screen activities (checkbox) */}
               <div className="bg-white rounded-2xl p-4">
                 <p className="text-gray-700 font-semibold mb-3">
-                  {t('parentQuestionnaire.demographic.q10')}
+                  {t('parentQuestionnaire.demographic.d11')}
                 </p>
                 <div className="space-y-2">
                   {Object.entries(
@@ -874,16 +1040,14 @@ function ParentQuestionnaire() {
                       {
                         returnObjects: true,
                       },
-                    ),
+                    ) as Record<string, string>,
                   ).map(([key, value]) => (
                     <label key={key} className="flex items-center">
                       <input
                         type="checkbox"
                         value={key}
-                        checked={formData.d10_screenActivities.includes(key)}
-                        onChange={(e) =>
-                          handleCheckboxChange(e, 'd10_screenActivities')
-                        }
+                        checked={formData.d11.includes(key)}
+                        onChange={(e) => handleCheckboxChange(e, 'd11')}
                         className="mr-2"
                       />
                       {value}
@@ -892,14 +1056,14 @@ function ParentQuestionnaire() {
                 </div>
               </div>
 
-              {/* Q11: Screen time */}
+              {/* D12: Child screen time */}
               <div className="bg-white rounded-2xl p-4">
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {t('parentQuestionnaire.demographic.q11')}
+                  {t('parentQuestionnaire.demographic.d12')}
                 </label>
                 <select
-                  name="d11_screenTime"
-                  value={formData.d11_screenTime}
+                  name="d12"
+                  value={formData.d12}
                   onChange={handleChange}
                   className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
                   required
@@ -932,6 +1096,129 @@ function ParentQuestionnaire() {
                   </option>
                 </select>
               </div>
+
+              {/* D13: Parent screen time */}
+              <div className="bg-white rounded-2xl p-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  {t('parentQuestionnaire.demographic.d13')}
+                </label>
+                <select
+                  name="d13"
+                  value={formData.d13}
+                  onChange={handleChange}
+                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
+                  required
+                >
+                  <option value="">{t('parentQuestionnaire.choose')}</option>
+                  <option value="none">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.screenTime.none',
+                    )}
+                  </option>
+                  <option value="less1hour">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.screenTime.less1hour',
+                    )}
+                  </option>
+                  <option value="1to2hours">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.screenTime.1to2hours',
+                    )}
+                  </option>
+                  <option value="2to3hours">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.screenTime.2to3hours',
+                    )}
+                  </option>
+                  <option value="more4hours">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.screenTime.more4hours',
+                    )}
+                  </option>
+                </select>
+              </div>
+
+              {/* D14: Parent upset frequency */}
+              <div className="bg-white rounded-2xl p-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  {t('parentQuestionnaire.demographic.d14')}
+                </label>
+                <select
+                  name="d14"
+                  value={formData.d14}
+                  onChange={handleChange}
+                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
+                  required
+                >
+                  <option value="">{t('parentQuestionnaire.choose')}</option>
+                  <option value="never">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.never',
+                    )}
+                  </option>
+                  <option value="rarely">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.rarely',
+                    )}
+                  </option>
+                  <option value="sometimes">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.sometimes',
+                    )}
+                  </option>
+                  <option value="often">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.often',
+                    )}
+                  </option>
+                  <option value="daily">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.daily',
+                    )}
+                  </option>
+                </select>
+              </div>
+
+              {/* D15: Child upset frequency */}
+              <div className="bg-white rounded-2xl p-4">
+                <label className="block text-gray-700 font-semibold mb-2">
+                  {t('parentQuestionnaire.demographic.d15')}
+                </label>
+                <select
+                  name="d15"
+                  value={formData.d15}
+                  onChange={handleChange}
+                  className="block w-full rounded-full bg-gray-200 p-2 px-4 text-gray-700 font-medium"
+                  required
+                >
+                  <option value="">{t('parentQuestionnaire.choose')}</option>
+                  <option value="never">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.never',
+                    )}
+                  </option>
+                  <option value="rarely">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.rarely',
+                    )}
+                  </option>
+                  <option value="sometimes">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.sometimes',
+                    )}
+                  </option>
+                  <option value="often">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.often',
+                    )}
+                  </option>
+                  <option value="daily">
+                    {t(
+                      'parentQuestionnaire.demographicOptions.upsetFrequency.daily',
+                    )}
+                  </option>
+                </select>
+              </div>
             </div>
 
             {/* Section 2: Understanding your child */}
@@ -947,23 +1234,38 @@ function ParentQuestionnaire() {
                 </h2>
               </div>
 
-              {understandingQuestions.map(({ key, question }) => (
+              <p
+                className="text-gray-700 mb-3"
+                dangerouslySetInnerHTML={{
+                  __html: t('parentQuestionnaire.section2Instruction'),
+                }}
+              />
+
+              {understandingQuestions.map(({ key }, index) => (
                 <div className="bg-white rounded-2xl p-4" key={key}>
-                  <p className="text-gray-700 font-semibold mb-3">{question}</p>
+                  <p className="text-gray-700 font-semibold mb-1">
+                    {index + 1}.{' '}
+                    {t(`parentQuestionnaire.questions.${key}.question`)}
+                  </p>
+                  <p className="text-gray-500 mb-3">
+                    ({t(`parentQuestionnaire.questions.${key}.example`)})
+                  </p>
                   <div className="space-y-2">
-                    {Object.keys(answerOptions).map((option) => (
-                      <label key={option} className="flex items-center">
+                    {answerOptions.map((option) => (
+                      <label key={option.value} className="flex items-center">
                         <input
                           type="radio"
                           name={key}
-                          value={option}
+                          value={option.value}
                           checked={
-                            formData[key as keyof typeof formData] === option
+                            (formData[
+                              key as keyof typeof formData
+                            ] as string) === option.value
                           }
                           onChange={handleChange}
                           className="mr-2"
                         />
-                        {answerOptions[option]}
+                        {option.label}
                       </label>
                     ))}
                   </div>
