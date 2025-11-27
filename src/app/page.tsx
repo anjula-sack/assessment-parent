@@ -102,7 +102,7 @@ const skillQuestionMap = {
   ],
   metacognition: ['question_5', 'question_9'],
   empathy: [
-    'question_5',
+    'question_6',
     'question_10',
     'question_11',
     'question_12',
@@ -166,6 +166,7 @@ function ParentQuestionnaire() {
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [scores, setScores] = useState({})
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const data: any = i18n.language === 'ar' ? arData : enData
@@ -200,6 +201,13 @@ function ParentQuestionnaire() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const handleScoresChange = (question: string, score: number) => {
+    if (question === 'question_1' || question === 'question_2') {
+      return
+    }
+    setScores((prev) => ({ ...prev, [question]: score }))
+  }
+
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
@@ -227,8 +235,7 @@ function ParentQuestionnaire() {
     if (!questionKeys) return 0
 
     const totalScore = questionKeys.reduce((sum, questionKey) => {
-      const answer = formData[questionKey as keyof typeof formData] as string
-      const score = parseInt(answer) || 0
+      const score = scores[questionKey] || 0
       return sum + score
     }, 0)
 
@@ -246,16 +253,13 @@ function ParentQuestionnaire() {
   }
 
   const calculateTotalScore = () => {
-    const questionKeys = Object.keys(formData).filter((key) =>
-      key.startsWith('q'),
-    )
-    const totalScore = questionKeys.reduce((sum, key) => {
-      const answer = formData[key as keyof typeof formData] as string
-      const score = parseInt(answer) || 0
+    const questions = Object.keys(scores)
+    const totalScore = questions.reduce((sum, key) => {
+      const score = scores[key] || 0
       return sum + score
     }, 0)
 
-    return questionKeys.length > 0 ? totalScore / questionKeys.length : 0
+    return questions.length > 0 ? totalScore / questions.length : 0
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -311,6 +315,7 @@ function ParentQuestionnaire() {
         }),
         testType,
       }
+
       await createParentAssessment(data)
       await updateScores({
         section: formData.section,
@@ -536,6 +541,11 @@ function ParentQuestionnaire() {
             </p>
           </div>
 
+          <div
+            className="mt-12 text-black"
+            dangerouslySetInnerHTML={{ __html: t('consent.privacyPolicy') }}
+          />
+
           {/* Button */}
           <div className="text-center mt-8">
             <button
@@ -569,7 +579,7 @@ function ParentQuestionnaire() {
         {isSubmitted ? (
           <div className="bg-white rounded-2xl p-8 w-full max-w-2xl mt-4 text-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-primary-700">
-              Thank you for completing, now it is your child&apos;s turn
+              {t('parentQuestionnaire.thankYou')}
             </h2>
             <p className="text-gray-600 text-lg">
               {t('parentQuestionnaire.submissionSuccess')}
@@ -578,7 +588,7 @@ function ParentQuestionnaire() {
               onClick={() => router.push(childAssessmentUrl)}
               className="rounded-2xl bg-primary-700 px-8 py-3 font-medium text-white hover:bg-primary-500 focus:outline-none focus:ring-4 focus:ring-primary-300 transition-all duration-200"
             >
-              take me to the assessment
+              {t('parentQuestionnaire.takeMeToTheAssessment')}
             </button>
           </div>
         ) : (
@@ -1244,7 +1254,6 @@ function ParentQuestionnaire() {
               {understandingQuestions.map(({ key }, index) => (
                 <div className="bg-white rounded-2xl p-4" key={key}>
                   <p className="text-gray-700 font-semibold mb-1">
-                    {index + 1}.{' '}
                     {t(`parentQuestionnaire.questions.${key}.question`)}
                   </p>
                   <p className="text-gray-500 mb-3">
@@ -1258,11 +1267,13 @@ function ParentQuestionnaire() {
                           name={key}
                           value={option.value}
                           checked={
-                            (formData[
-                              key as keyof typeof formData
-                            ] as string) === option.value
+                            formData[key as keyof typeof formData] ===
+                            option.value
                           }
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            handleChange(e)
+                            handleScoresChange(key, option.score)
+                          }}
                           className="mr-2"
                         />
                         {option.label}
@@ -1282,7 +1293,7 @@ function ParentQuestionnaire() {
               >
                 {isLoading
                   ? t('parentQuestionnaire.submitting')
-                  : t('parentQuestionnaire.submit')}
+                  : t('common.submit')}
               </button>
               {error && <p className="text-red-600 mt-2">{error}</p>}
             </div>

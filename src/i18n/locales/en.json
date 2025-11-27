@@ -24,9 +24,6 @@
   "assessment": {
     "title": "tilli Assessment",
     "submitting": "Submitting...",
-    "thankYou": "Thank you for playing!",
-    "yayDone": "Yay you are done!",
-    "didYouHaveFun": "Did you have fun doing this?",
     "answers": {
       "never": "Never",
       "rarely": "Rarely",
@@ -60,7 +57,8 @@
     "confidentiality1": "All data will be **anonymized** prior to analysis and dissemination.",
     "confidentiality2": "Personally identifiable information (e.g., your name or your child's name) will not be stored or shared.",
     "consentInstruction": "If you provide consent, please **click the button below** to proceed. If you do not wish to participate, you may exit this screen.",
-    "iUnderstand": "I Understand"
+    "iUnderstand": "I Understand",
+    "privacyPolicy": "Read more about our <u><a href='https://www.tillikids.com/privacypolicy'>Privacy Policy</a></u> here."
   },
   "videoIntro": {
     "description": "Please watch this short message before continuing."
@@ -75,6 +73,9 @@
     "section2Instruction": "Think about your child’s behavior in the <b>last two weeks</b> as you answer the following questions.",
     "choose": "Choose",
     "yourAnswer": "Your answer",
+    "submissionSuccess": "Your response has been recorded successfully.",
+    "takeMeToTheAssessment": "Take me to the assessment",
+    "thankYou": "Thank you for completing, now it is your child's turn",
     "demographic": {
       "d1": "How are you related to the child?",
       "d2": "What is your child’s date of birth?",
@@ -92,7 +93,6 @@
       "d14": "In the last week, how often did YOU get upset or frustrated about limiting your child’s screen time?",
       "d15": "In the last week, how often did your CHILD get upset or frustrated when you limited their screen time?"
     },
-
     "demographicOptions": {
       "relation": {
         "father": "Father",
