@@ -58,7 +58,7 @@
     "confidentiality2": "Personally identifiable information (e.g., your name or your child's name) will not be stored or shared.",
     "consentInstruction": "If you provide consent, please **click the button below** to proceed. If you do not wish to participate, you may exit this screen.",
     "iUnderstand": "I Understand",
-    "privacyPolicy": "Read more about our <u><a href='https://www.tillikids.com/privacypolicy'>Privacy Policy</a></u> here."
+    "privacyPolicy": "Read more about our <u><a target='_blank' href='https://www.tillikids.com/privacypolicy'>Privacy Policy</a></u> here."
   },
   "videoIntro": {
     "description": "Please watch this short message before continuing."

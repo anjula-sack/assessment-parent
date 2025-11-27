@@ -414,7 +414,7 @@ function ParentQuestionnaire() {
               </div>
               <button
                 onClick={onSkip}
-                className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-full text-sm uppercase tracking-wide"
+                className="absolute top-3 right-3 bg-white/90 text-gray-800 text-sm font-medium px-4 py-2 rounded-full shadow hover:bg-white"
               >
                 {t('common.skip')}
               </button>
@@ -1254,6 +1254,7 @@ function ParentQuestionnaire() {
               {understandingQuestions.map(({ key }, index) => (
                 <div className="bg-white rounded-2xl p-4" key={key}>
                   <p className="text-gray-700 font-semibold mb-1">
+                    {index + 1}.{' '}
                     {t(`parentQuestionnaire.questions.${key}.question`)}
                   </p>
                   <p className="text-gray-500 mb-3">

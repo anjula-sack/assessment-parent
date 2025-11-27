@@ -15,7 +15,7 @@ export const createParentAssessment = async (data: Record<string, any>) => {
 
 const getLevel = (value) => {
   if (value < 1) return 'beginner'
-  if (value < 2.4) return 'growth'
+  if (value < 2.4) return 'learner'
   return 'expert'
 }
 
@@ -29,7 +29,7 @@ const incrementCategoryDistributions = (existing, categoryLevels) => {
   const updated = { ...existing }
   for (const [category, level] of Object.entries(categoryLevels)) {
     if (!updated[category])
-      updated[category] = { beginner: 0, growth: 0, expert: 0 }
+      updated[category] = { beginner: 0, learner: 0, expert: 0 }
 
     updated[category][level as keyof typeof category] =
       (updated[category][level as keyof typeof category] || 0) + 1
@@ -66,12 +66,12 @@ export const updateScores = async ({
   )
 
   if (agg.documents.length === 0) {
-    const overallDist = { beginner: 0, growth: 0, expert: 0 }
+    const overallDist = { beginner: 0, learner: 0, expert: 0 }
     overallDist[getLevel(overallScore)] = 1
 
     const categoryDist = {}
     for (const [category, lvl] of Object.entries(categoryLevels)) {
-      categoryDist[category] = { beginner: 0, growth: 0, expert: 0 }
+      categoryDist[category] = { beginner: 0, learner: 0, expert: 0 }
       categoryDist[category][lvl] = 1
     }
 
