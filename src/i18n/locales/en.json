@@ -19,7 +19,9 @@
     "selectSchool": "Select School",
     "selectGrade": "Select Grade",
     "selectSection": "Select Section",
-    "error": "Failed to login. Please try again."
+    "error": "Failed to login. Please try again.",
+    "schoolNotInList": "School not in list",
+    "enterNewSchool": "Enter new school"
   },
   "assessment": {
     "title": "tilli Assessment",

@@ -124,6 +124,7 @@ function ParentQuestionnaire() {
 
   const [consentGiven, setConsentGiven] = useState(false)
   const [formData, setFormData] = useState({
+    isNewSchool: false,
     school: '',
     grade: '',
     section: '',
@@ -661,6 +662,45 @@ function ParentQuestionnaire() {
                     </option>
                   ))}
                 </select>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="mr-2"
+                    checked={formData.isNewSchool}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        isNewSchool: e.target.checked,
+                        school: '',
+                      }))
+                    }
+                  />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t('login.schoolNotInList')}
+                  </label>
+                </div>
+
+                <div>
+                  {/* New School Input Field */}
+                  {formData.isNewSchool && (
+                    <input
+                      type="text"
+                      placeholder={t('login.enterNewSchool')}
+                      className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md 
+                  focus:outline-none focus:ring-2 text-black focus:ring-[#82A4DE]"
+                      value={formData.school}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          school: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  )}
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     {t('login.section')} *
