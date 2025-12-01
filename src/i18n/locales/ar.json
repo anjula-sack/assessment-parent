@@ -344,6 +344,11 @@
     "sweileh_girls_prep": "إناث صويلح الإعدادية",
     "wadi_seer_girls_prep": "إناث وادي السير الإعدادية",
     "wadi_seer_boys_prep": "ذكور وادي السير الإعدادية",
+    "baqaa_boys_p3_v2": "ذكور البقعة الابتدائية الثالثة",
+    "nuzha_boys_prep_2_v2": "ذكور النزهه الإعدادية الثانية",
+    "baqaa_boys_p4_v2": "مدرسة ذكور البقعة الابتدائية الرابعة",
+    "nuzha_primary_1": "النزهه الابتدائية الأولى",
+    "karamah_girls_prep_v2": "إناث الكرامة الإعدادية",
 
     "joufa_boys_primary": "ذكورالجوفة الابتدائية",
     "joufa_girls_primary": "اناث الجوفة الابتدائية",
@@ -373,6 +378,11 @@
     "nazzal_girls_prep_1": "اناث نزال الإعدادية الأولى",
     "nazzal_girls_prep_2": "اناث نزال الإعدادية الثانية",
     "nazzal_girls_primary": "اناث نزال الابتدائية",
+    "amman_camp_boys_primary_v2": "ذكور مخيم عمان الابتدائية",
+    "taybeh_primary": "الطيبة الابتدائية",
+    "zuhour_primary_v2": "الزهور الابتدائية",
+    "joufa_girls_primary_v2": "اناث الجوفة الابتدائية",
+    "amman_camp_primary": "مخيم عمان الابتدائية",
 
     "sukhna_boys_prep": "المدرسة : ذكور السخنة الاعدادية",
     "sukhna_girls_prep": "المدرسة : اناث السخنة الاعدادية",
@@ -401,7 +411,8 @@
     "zarqa_boys_prep_1": "المدرسة : ذكور الزرقاء الاعدادية الاولى",
     "zarqa_boys_prep_2": "المدرسة : ذكور الزرقاء الاعدادية الثانية",
     "zarqa_girls_prep_1": "المدرسة : اناث الزرقاء الإعدادية الأولى",
-    "zarqa_girls_prep_2": "المدرسة : اناث الزرقاء الاعدادية الثانية"
+    "zarqa_girls_prep_2": "المدرسة : اناث الزرقاء الاعدادية الثانية",
+    "rusaifa_boys_primary_2": "ذكور الرصيـفة الابتدائية الثانية"
   },
   "zonesToSchools": {
     "irbid": [
@@ -471,7 +482,12 @@
       "qusour_mixed_2",
       "sweileh_girls_prep",
       "wadi_seer_girls_prep",
-      "wadi_seer_boys_prep"
+      "wadi_seer_boys_prep",
+      "baqaa_boys_p3_v2",
+      "nuzha_boys_prep_2_v2",
+      "baqaa_boys_p4_v2",
+      "nuzha_primary_1",
+      "karamah_girls_prep_v2"
     ],
     "south_amman": [
       "joufa_boys_primary",
@@ -501,7 +517,12 @@
       "nazzal_boys_primary",
       "nazzal_girls_prep_1",
       "nazzal_girls_prep_2",
-      "nazzal_girls_primary"
+      "nazzal_girls_primary",
+      "amman_camp_boys_primary_v2",
+      "taybeh_primary",
+      "zuhour_primary_v2",
+      "joufa_girls_primary_v2",
+      "amman_camp_primary"
     ],
     "zarqa": [
       "sukhna_boys_prep",
@@ -531,7 +552,8 @@
       "zarqa_boys_prep_1",
       "zarqa_boys_prep_2",
       "zarqa_girls_prep_1",
-      "zarqa_girls_prep_2"
+      "zarqa_girls_prep_2",
+      "rusaifa_boys_primary_2"
     ]
   }
 }
