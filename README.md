@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/tillioss/assessment-parent/badge.svg?branch=main)](https://coveralls.io/github/tillioss/assessment-parent?branch=main)
+
 # Tilli Assessment Tool
 
 Tilli Assessment is an open-source Next.js application for conducting interactive emotional assessments in a child-friendly interface. It uses Appwrite for authentication and data storage.
