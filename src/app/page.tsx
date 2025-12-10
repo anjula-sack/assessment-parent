@@ -652,7 +652,7 @@ function ParentQuestionnaire() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md 
                      focus:outline-none focus:ring-2 focus:ring-[#82A4DE] 
                      text-sm sm:text-base text-gray-900 bg-white"
-                  required
+                  required={!formData.school}
                   disabled={!formData.zone}
                 >
                   <option value="">{t('login.selectSchool')}</option>

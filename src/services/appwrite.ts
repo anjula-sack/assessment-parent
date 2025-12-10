@@ -83,6 +83,8 @@ export const updateScores = async ({
         school,
         grade,
         assessment,
+        section,
+        zone,
         testType,
         total_students: 1,
         overall_level_distribution: JSON.stringify(overallDist),
